@@ -16,33 +16,33 @@ def user_turn(board):
         exit(0)
     board[position-1]=-1
 
-def minimax(board, player):
+def minimax(board, player,depth):
     result = analyze_board(board)
     if result!=0:
-        return result*player
-    best_pos=-1
+        return result*player/depth
+    if depth>=9:
+        return 0
     best_score=-2
     for i in range(0,9):
         if board[i]==0:
             board[i] = player
-            score = -minimax(board, player*-1)
+            score = -minimax(board, player*-1,depth+1)
             board[i]=0
 
             if score>best_score:
                 best_score=score
-                best_pos=i
-    if best_pos==-1:
+    if best_score==-2:
         return 0
     return best_score
 
-def computer_turn(board):
+def computer_turn(board,depth):
     best_pos = -1
     best_score = -2
     print("Computer's possible moves with scores:")
     for i in range(0,9):
         if board[i]==0:
             board[i]=1
-            score=-minimax(board,-1)
+            score=-minimax(board,-1,depth+1)
             print(f"At position {i+1} computer scores {score}")
             board[i]=0
 
@@ -66,7 +66,7 @@ for i in range(0,9):
     if analyze_board(board)!=0:
         break
     if (i+player)%2==0:
-        computer_turn(board)
+        computer_turn(board,0)
     else:
         display_board(board)
         user_turn(board)
