@@ -32,8 +32,8 @@ mother(sushma,sakshi).
 
 parent(X,Y):- father(X,Y);mother(X,Y).
 sibling(X,Y):- parent(Z,X),parent(Z,Y),X\=Y.
-brother(X,Y):- sibling(X,Y),male(Y).
-sister(X,Y):- sibling(X,Y),female(Y).
+brother(X,Y):- sibling(X,Y),male(X).
+sister(X,Y):- sibling(X,Y),female(X).
 cousin(X,Y):- parent(Z,X),parent(W,Y),sibling(Z,W).
 uncle(X,Y):- parent(Z,Y),brother(X,Z).
 aunt(X,Y):- parent(Z,Y),sister(X,Z).
